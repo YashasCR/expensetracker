@@ -6,7 +6,9 @@ import NewExpense from "./components/NewExpense/NewExpense";
 import ExpenseFilter from "./components/ExpenseFilter";
 function App() {
   const [filterYear,setFilterYear]=useState('2020');
-  const expensedata = data.map((item) => {
+  const [expenseFile,setExpenseFile]=useState(data);
+
+  const expensedata = expenseFile.map((item) => {
     return <Expense key={item.id} {...item} />;
   });
 
@@ -17,9 +19,12 @@ function App() {
   };
 
   const addExpenseHandler = (expense) => {
-    console.log(expense);
+    setExpenseFile(prevExpenseFile=>{
+      return [expense,...prevExpenseFile];
+      
+    });
   };
-
+  console.log(expenseFile);
   return (
     <div>
       <NewExpense onAddExpense={addExpenseHandler} />
